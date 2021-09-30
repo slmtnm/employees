@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "koa": "^2.13.3",
+    "koa-body": "^4.2.0",
+    "koa-jwt": "^4.0.3",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^10.1.1"
+  },
+  "name": "employees",
+  "description": "Employees REST service",
+  "version": "0.0.1",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slmtnm/employees.git"
+  },
+  "author": "Makar Solomatin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/slmtnm/employees/issues"
+  },
+  "homepage": "https://github.com/slmtnm/employees#readme",
+  "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/register": "^7.15.3"
+  }
+}
