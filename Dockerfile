@@ -3,6 +3,6 @@ LABEL Author="Makar Solomatin <makar.solomatin.5@yandex.ru>"
 WORKDIR /app
 
 COPY . .
-RUN npm i
+RUN npm install
 
 CMD ["node", "src/app.js"]
