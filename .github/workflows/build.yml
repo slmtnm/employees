@@ -1,7 +1,6 @@
-name: Build and push docker image
+name: Main workflow
 on: push
 jobs:
-
   test:
     runs-on: ubuntu-latest
     steps:
@@ -11,6 +10,7 @@ jobs:
         run: npm test
   build:
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
