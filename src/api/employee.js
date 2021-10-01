@@ -1,5 +1,5 @@
 const employee = [
-    {name: 'John', surname: 'Doe', role: 'QA'}
+    {name: 'John', surname: 'Doe', role: 'QA'},
 ];
 
 export async function getEmployeeHandler(ctx) {

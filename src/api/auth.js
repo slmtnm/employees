@@ -7,5 +7,5 @@ export async function signinHandler(ctx) {
 
 export async function loginHandler(ctx) {
     console.log(ctx.request.body);
-    ctx.response.body = "login";
+    ctx.response.body = 'login';
 }

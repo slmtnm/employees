@@ -1,4 +1,4 @@
-import { promises } from 'fs';
+import {promises} from 'node:fs';
 
 export async function getVersionHandler(ctx) {
     const fileContent = await promises.readFile('package.json', 'utf8');

@@ -11,7 +11,8 @@
   "version": "0.0.1",
   "main": "src/app.js",
   "scripts": {
-    "start": "nodemon src/app.js"
+    "start": "nodemon src/app.js",
+    "test": "xo"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,11 @@
   "homepage": "https://github.com/slmtnm/employees#readme",
   "devDependencies": {
     "@babel/core": "^7.15.5",
-    "@babel/register": "^7.15.3"
+    "@babel/register": "^7.15.3",
+    "xo": "^0.44.0"
   },
-  "type": "module"
+  "type": "module",
+  "xo": {
+    "space": 4
+  }
 }
