@@ -2,6 +2,7 @@
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.3",
+    "koa-bearer-token": "^2.0.2",
     "koa-body": "^4.2.0",
     "koa-logger": "^3.2.1",
     "koa-router": "^10.1.1"
@@ -31,6 +32,9 @@
   },
   "type": "module",
   "xo": {
-    "space": 4
+    "space": 4,
+    "rules": {
+      "object-curly-spacing": "off"
+    }
   }
 }

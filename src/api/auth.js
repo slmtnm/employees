@@ -1,11 +1,22 @@
-export async function signinHandler(ctx) {
+import jwt from 'jsonwebtoken';
+import { secretKey } from '../config.js';
+
+export async function loginHandler(ctx) {
     const username = ctx.request.body.username;
     const password = ctx.request.body.password;
 
-    ctx.response.body = `User: ${username}, password: ${password}`;
+    if (!verifyUser(username, password)) {
+        ctx.throw(401, '401 Invalid login or password');
+    }
+
+    const token = jwt.sign({
+        username,
+        timestamp: Date.now(),
+    }, secretKey);
+
+    ctx.response.body = token;
 }
 
-export async function loginHandler(ctx) {
-    console.log(ctx.request.body);
-    ctx.response.body = 'login';
+function verifyUser(username, password) {
+    return Boolean(username + password);
 }

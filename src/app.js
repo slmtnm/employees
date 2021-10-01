@@ -1,11 +1,13 @@
 import Koa from 'koa';
+import { bearerToken } from 'koa-bearer-token';
+import Body from 'koa-body';
 import Logger from 'koa-logger';
 import Router from 'koa-router';
-import Body from 'koa-body';
-import {loginHandler, signinHandler} from './api/auth.js';
-import {getEmployeeHandler} from './api/employee.js';
-import {getVersionHandler} from './api/version.js';
-import {host, port} from './config.js';
+import { loginHandler } from './api/auth.js';
+import { getEmployeeHandler } from './api/employee.js';
+import { getVersionHandler } from './api/version.js';
+import { host, port } from './config.js';
+import { jwtPass } from './jwt.js';
 
 const app = new Koa();
 
@@ -13,7 +15,6 @@ const app = new Koa();
 const publicRouter = new Router();
 publicRouter
     .get('/api/version', getVersionHandler)
-    .post('/api/signin', signinHandler)
     .post('/api/login', loginHandler);
 
 const protectedRouter = new Router();
@@ -23,11 +24,10 @@ protectedRouter.get('/api/employee', getEmployeeHandler);
 app
     .use(new Logger())
     .use(new Body())
+    .use(bearerToken())
     .use(publicRouter.routes())
     .use(publicRouter.allowedMethods())
-    .use(async (ctx, next) => {
-        await next();
-    })
+    .use(jwtPass)
     .use(protectedRouter.routes())
     .use(protectedRouter.allowedMethods())
     .listen(port, host, () => {
