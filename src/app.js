@@ -1,35 +1,34 @@
-const Koa = require('koa');
-const Router = require('koa-router');
+import Koa from 'koa';
+import Logger from 'koa-logger';
+import Router from 'koa-router';
+import Body from 'koa-body';
+import { loginHandler, signinHandler } from './api/auth.js';
+import { getEmployee } from './api/employee.js';
+import { getVersionHandler } from './api/version.js';
+import { host, port, secretKey } from './config.js';
 
 const app = new Koa();
-const logger = require('koa-logger');
-const jwt = require('koa-jwt');
-
-const config = require('./config');
-
-const versionApi = require('./api/version');
-const authApi = require('./api/auth');
-const employeeApi = require('./api/employee');
 
 // Register API endpoint handlers
 const publicRouter = new Router();
-publicRouter.get('/api/version', versionApi.getVersionHandler);
-publicRouter.post('/api/signin', authApi.signinHandler);
-publicRouter.post('/api/login', authApi.loginHandler);
+publicRouter.get('/api/version', getVersionHandler);
+publicRouter.post('/api/signin', signinHandler);
+publicRouter.post('/api/login', loginHandler);
 
 const protectedRouter = new Router();
-protectedRouter.get('/api/employee', employeeApi.getEmployee);
+protectedRouter.get('/api/employee', getEmployee);
 
 // Register all application middleware and start app
 app
-  .use(logger())
+  .use(Logger())
+  .use(Body())
   .use(publicRouter.routes())
   .use(publicRouter.allowedMethods())
-  .use(jwt({
-    secret: 'shared-secret',
-  }))
+  .use(async (ctx, next) => {
+    await next()
+  })
   .use(protectedRouter.routes())
   .use(protectedRouter.allowedMethods())
-  .listen(config.port, config.host, () => {
-    console.log(`App listening on ${config.host}:${config.port}`);
+  .listen(port, host, () => {
+    console.log(`App listening on ${host}:${port}`);
   });

@@ -2,8 +2,6 @@ const employee = [
     {name: 'John', surname: 'Doe', role: 'QA'}
 ];
 
-module.exports = {
-    async getEmployee(ctx, next) {
-        ctx.response.body = JSON.stringify(employee);
-    }
+export async function getEmployee(ctx) {
+    ctx.response.body = JSON.stringify(employee);
 }

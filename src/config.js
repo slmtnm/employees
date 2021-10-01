@@ -1,4 +1,3 @@
-module.exports = {
-  port: process.env.PORT || '8080',
-  host: process.env.HOST || '0.0.0.0',
-}
+export const port = process.env.PORT || '8080';
+export const host = process.env.HOST || '0.0.0.0';
+export const secretKey = process.env.SECRET_KEY;

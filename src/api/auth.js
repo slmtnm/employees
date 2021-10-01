@@ -1,14 +1,11 @@
-module.exports = {
-    async signinHandler(ctx, next) {
-        console.log(ctx.request);
-        ctx.response.body = "signin";
-    },
-    async loginHandler(ctx, next) {
-        console.log(ctx.request.body);
-        ctx.response.body = "login";
-    },
-};
+export async function signinHandler(ctx) {
+    const username = ctx.request.body.username;
+    const password = ctx.request.body.password;
 
-function validatePassword(password) {
-    return true;
+    ctx.response.body = `User: ${username}, password: ${password}`;
+}
+
+export async function loginHandler(ctx) {
+    console.log(ctx.request.body);
+    ctx.response.body = "login";
 }
