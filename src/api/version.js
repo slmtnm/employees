@@ -1,4 +1,4 @@
-import {promises} from 'node:fs';
+import { promises } from 'node:fs';
 
 /** Handler that returns application version */
 export async function getVersionHandler(ctx) {
