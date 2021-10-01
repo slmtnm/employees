@@ -11,9 +11,10 @@ const app = new Koa();
 
 // Register API endpoint handlers
 const publicRouter = new Router();
-publicRouter.get('/api/version', getVersionHandler);
-publicRouter.post('/api/signin', signinHandler);
-publicRouter.post('/api/login', loginHandler);
+publicRouter
+    .get('/api/version', getVersionHandler)
+    .post('/api/signin', signinHandler)
+    .post('/api/login', loginHandler);
 
 const protectedRouter = new Router();
 protectedRouter.get('/api/employee', getEmployeeHandler);
