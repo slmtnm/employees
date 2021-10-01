@@ -3,7 +3,7 @@ import Logger from 'koa-logger';
 import Router from 'koa-router';
 import Body from 'koa-body';
 import { loginHandler, signinHandler } from './api/auth.js';
-import { getEmployee } from './api/employee.js';
+import { getEmployeeHandler } from './api/employee.js';
 import { getVersionHandler } from './api/version.js';
 import { host, port, secretKey } from './config.js';
 
@@ -16,7 +16,7 @@ publicRouter.post('/api/signin', signinHandler);
 publicRouter.post('/api/login', loginHandler);
 
 const protectedRouter = new Router();
-protectedRouter.get('/api/employee', getEmployee);
+protectedRouter.get('/api/employee', getEmployeeHandler);
 
 // Register all application middleware and start app
 app
