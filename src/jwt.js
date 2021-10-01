@@ -1,6 +1,9 @@
 import jwt from 'jsonwebtoken';
 import { secretKey, tokenTTL } from './config.js';
 
+/** JWT middleware function
+ * Checks whether JWT token is present, is valid and not expired.
+*/
 export async function jwtPass(ctx, next) {
     if (!ctx.request.token) {
         ctx.throw(401, '401 Unauthorized\n');
