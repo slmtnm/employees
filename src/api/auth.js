@@ -1,7 +1,11 @@
+import Router from "koa-router";
 import jwt from 'jsonwebtoken';
-import { secretKey } from '../config.js';
+import { secretKey } from '../config.js'
 
-/** Handler that is used for user logging in */
+function verifyUser(username, password) {
+    return Boolean(username + password);
+}
+
 export async function loginHandler(ctx) {
     const username = ctx.request.body.username;
     const password = ctx.request.body.password;
@@ -18,12 +22,7 @@ export async function loginHandler(ctx) {
     ctx.response.body = token;
 }
 
-/**
- * Verifies user credentials by looking up in database by looking up in database
- * @param {string} username Username string
- * @param {string} password Password string
- * @returns {boolean} whether user is autenticated
- */
-function verifyUser(username, password) {
-    return Boolean(username + password);
-}
+const router = new Router()
+    .post('/login', loginHandler);
+
+export default router;
