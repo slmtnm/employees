@@ -1,7 +1,7 @@
-import Router from 'koa-router'
-import authRouter from './auth.js'
-import employeesRouter from './employees.js'
+import Router from 'koa-router';
 import assertToken from '../middleware/jwt.js';
+import authRouter from './auth.js';
+import employeesRouter from './employees.js';
 
 const router = new Router()
     .use('/api/auth', authRouter.routes(), authRouter.allowedMethods())

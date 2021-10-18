@@ -7,12 +7,12 @@ import { secretKey, tokenTTL } from '../config.js';
 async function assertToken(ctx, next) {
     try {
         if (!ctx.request.token) {
-            throw 'Unauthorized';
+            ctx.throw(401, 'Unauthorized (no token passed)');
         }
 
         const { timestamp } = jwt.verify(ctx.request.token, secretKey);
         if ((Date.now() - timestamp) / 1000 > tokenTTL) {
-            throw 'Token expired';
+            ctx.throw(401, 'Unauthorized (token expired)');
         }
     } catch (error) {
         ctx.throw(401, `401 ${error}\n`);

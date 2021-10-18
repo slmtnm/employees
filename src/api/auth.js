@@ -1,6 +1,6 @@
-import Router from "koa-router";
+import Router from 'koa-router';
 import jwt from 'jsonwebtoken';
-import { secretKey } from '../config.js'
+import { secretKey } from '../config.js';
 
 function verifyUser(username, password) {
     return Boolean(username + password);
