@@ -1,12 +1,9 @@
-import knex from 'knex';
-import { pgConnectionString } from '../config.js';
+import * as EmployeeModel from '../dal/employee.js'
 
-const pg = knex({
-    client: 'pg',
-    connection: pgConnectionString,
-});
-
-/** Returns list of all employees */
-export async function getEmployees() {
-    return pg('employees').select('*');
+export async function create() {
+    // TODO: Validate
+    return EmployeeModel.create();
 }
+
+export const list = EmployeeModel.list;
+export const remove = EmployeeModel.remove;

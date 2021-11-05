@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import jwt from 'jsonwebtoken';
-import { secretKey } from '../config.js';
+import { secretKey, tokenTTL } from '../config.js';
 
 function verifyUser(username, password) {
     return Boolean(username + password);
@@ -14,12 +14,8 @@ export async function loginHandler(ctx) {
         ctx.throw(401, '401 Invalid login or password');
     }
 
-    const token = jwt.sign({
-        username,
-        timestamp: Date.now(),
-    }, secretKey);
-
-    ctx.response.body = token;
+    const token = jwt.sign({username}, secretKey, {expiresIn: tokenTTL});
+    ctx.response.body = {accessToken: token};
 }
 
 const router = new Router()
