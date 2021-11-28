@@ -35,11 +35,11 @@ const validate = addFormats(new Ajv()).compile({
   additionalProperties: false,
 });
 
-const router = new Router()
+export default new Router()
   .get('/', async ctx => {
     // Endpoint for listing all employees
-    const employees = await getAll();
-    ctx.response.body = employees;
+    ctx.response.body = await getAll(ctx.query.filter, 
+      ctx.query.sorted);
   })
   .get('/:id', async ctx => {
     // Endpoint for fetching specific employee by id
@@ -57,6 +57,8 @@ const router = new Router()
     }
 
     await add(ctx.request.body);
+
+    ctx.response.status = 201;
     ctx.response.body = { 
       result: 'ok',
       message: 'successfully added employee' 
@@ -74,5 +76,3 @@ const router = new Router()
       message: 'successfully deleted employee'
     };
   });
-
-export default router;

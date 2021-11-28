@@ -14,7 +14,7 @@ const validate = new Ajv().compile({
   additionalProperties: false,
 });
 
-const router = new Router()
+export default new Router()
   .post('/login', async ctx => {
     // Endpoint for logging into account
     if (!validate(ctx.request.body)) {
@@ -32,5 +32,3 @@ const router = new Router()
 
     ctx.response.body = { token };
   });
-
-export default router;

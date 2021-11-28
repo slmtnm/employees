@@ -1,8 +1,16 @@
-import { selectById, selectAll, insert, deleteById } from '../integration/employees.js';
+import { selectById, selectAll, insert, deleteById } 
+  from '../integration/employees.js';
 
-/** Returns list of all employees */
-export async function getAll() {
-  return selectAll();
+/** Returns list of all employees.
+ * 
+ *  If filter is proveded, then returns only employees whose name/surname
+ *  contains filter string.
+ * 
+ *  If sortedBySalary is true, then returns raws sorted by salary.
+ * 
+ */
+export async function getAll(filter, sortedBySalary) {
+  return selectAll(filter, sortedBySalary);
 }
 
 /** Returns employee with given id */

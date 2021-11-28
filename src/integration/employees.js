@@ -4,8 +4,20 @@ export async function selectById(id) {
   return db('employees').select('*').where({id})
 }
 
-export async function selectAll() {
-  return db('employees').select('*');
+export async function selectAll(filter, sortBySalary) {
+  let promise = db('employees').select('*');
+
+  if (filter) {
+    promise = promise
+      .whereRaw('LOWER("name") LIKE ?', `%${filter}%`)
+      .orWhereRaw('LOWER("surname") LIKE ?', `%${filter}%`);
+  }
+
+  if (sortBySalary == 'true') {
+    promise = promise.orderBy('salary', 'asc');
+  }
+
+  return promise;
 }
 
 export async function insert(employee) {

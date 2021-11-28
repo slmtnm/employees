@@ -1,0 +1,180 @@
+openapi: "3.0.0"
+info:
+  title: Employees management API
+  version: 0.1.0
+
+servers:
+  - url: http://localhost:8080/api
+    description: Local development server
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Employee:
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Makar
+        surname:
+          type: string
+          example: Solomatin
+        role:
+          type: string
+          enum: 
+            - 'Junior Software Engineer'
+            - 'Software Engineer'
+            - 'Senior Software Engineer'
+            - 'Lead Software Engineer'
+        birthdate:
+          type: string
+          example: '2000-04-27'
+        salary:
+          type: integer
+          example: 228
+    EmployeeWithoutId:
+      properties:
+        name:
+          type: string
+          example: Makar
+        surname:
+          type: string
+          example: Solomatin
+        role:
+          type: string
+          enum: 
+            - 'Junior Software Engineer'
+            - 'Software Engineer'
+            - 'Senior Software Engineer'
+            - 'Lead Software Engineer'
+        birthdate:
+          type: string
+          example: '2000-04-27'
+        salary:
+          type: integer
+          example: 228
+
+paths:
+  /auth/login:
+    post:
+      summary: Log in to system
+      tags:
+        - Authentification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                username:
+                  type: string
+                  example: makar
+                password:
+                  type: string
+                  example: strongpassword
+      responses:
+        '200':
+          description: Successfully logged in
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  token:
+                    type: 'string'
+        '422':
+          description: Incorrect username or password format
+        '401':
+          description: Invalid username or password
+  /employees:
+    get:
+      summary: List all employees
+      security:
+        - BasicAuth: []
+      tags:
+        - Employees
+      parameters:
+        - name: sorted
+          in: query
+          required: false
+          description: Output employees sorted by salary
+          schema:
+            type: string
+            enum: ['true']
+        - name: filter
+          in: query
+          required: false
+          description: Filter employees by name or surname
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of employees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+    post:
+      summary: Add new employee
+      security:
+        - BasicAuth: []
+      tags:
+        - Employees
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeWithoutId'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Wrong input format
+  /employees/{id}:
+    get:
+      summary: Get info about employee with given id
+      security:
+        - BasicAuth: []
+      tags:
+        - Employees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the employee to retrieve
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Employee with this id found and returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+    delete:
+      summary: Delete employee with given id
+      security:
+        - BasicAuth: []
+      tags:
+        - Employees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the employee to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Employee with this id found and deleted
+        '404':
+          description: Employee with this id not found
