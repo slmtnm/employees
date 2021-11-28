@@ -8,6 +8,7 @@ export async function selectAll(filter, sortBySalary) {
   let promise = db('employees').select('*');
 
   if (filter) {
+    filter = filter.toLowerCase();
     promise = promise
       .whereRaw('LOWER("name") LIKE ?', `%${filter}%`)
       .orWhereRaw('LOWER("surname") LIKE ?', `%${filter}%`);
