@@ -113,6 +113,12 @@ paths:
           description: Filter employees by name or surname
           schema:
             type: string
+        - name: page
+          in: query
+          required: false
+          description: Page to request
+          schema:
+            type: int
       responses:
         '200':
           description: An array of employees
@@ -160,6 +166,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Employee'
+    post:
+      summary: Update employees fields
+      security:
+        - BasicAuth: []
+      tags:
+        - Employees
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeWithoutId'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the employee to update
+      responses:
+        "200":
+          description: Employee with this id found and updated
+        "400":
+          description: Wrong input format
+        "404":
+          description: Employee with this id not found
     delete:
       summary: Delete employee with given id
       security:

@@ -1,39 +1,30 @@
-import { selectById, selectAll, insert, deleteById } 
+import { selectById, selectAll, insert, deleteById, updateById }
   from '../integration/employees.js';
 
 /** Returns list of all employees.
- * 
+ *
  *  If filter is proveded, then returns only employees whose name/surname
  *  contains filter string.
- * 
+ *
  *  If sortedBySalary is true, then returns raws sorted by salary.
- * 
+ *
  */
-export async function getAll(filter, sortedBySalary) {
-  return selectAll(filter, sortedBySalary);
+export async function getAll(filter, sorted, page, pageSize) {
+  return selectAll(filter, sorted, page, pageSize);
 }
 
 /** Returns employee with given id */
 export async function getById(id) {
   const employees = await selectById(id);
-  if (employees.length == 0) {
+  if (employees.length === 0) {
     return null;
   }
+
   return employees[0];
 }
 
-/** Returns sorted list of all employees */
-export async function getAllSorted() {
-  const all = await selectAll();
-
-  all.sort((em1, em2) => {
-    const s1 = (em1.surname + em1.name).toLowerCase();
-    const s2 = (em2.surname + em2.name).toLowerCase();
-
-    return s1 < s2 ? -1 : +Number(s1 > s2);
-  });
-
-  return all;
+export async function modifyById(id, updates) {
+  await updateById(id, updates);
 }
 
 /** Adds employee to list.

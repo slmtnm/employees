@@ -34,6 +34,7 @@
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/register": "^7.15.3",
+    "jshint": "^2.13.1",
     "nodemon": "^2.0.15",
     "xo": "^0.44.0"
   },
@@ -41,7 +42,11 @@
   "xo": {
     "space": 2,
     "rules": {
-      "object-curly-spacing": "off"
+      "object-curly-spacing": "off",
+      "no-unused-vars": "off"
     }
+  },
+  "jshintConfig": {
+    "esversion": 8
   }
 }

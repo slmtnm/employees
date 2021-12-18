@@ -7,10 +7,10 @@ import employeesRouter from './employees.js';
 
 export default new Router()
   .get('/swagger', koaSwagger({
-    routePrefix: false, 
-    swaggerOptions: {spec: yamljs.load('src/api/swagger.yml')}
+    routePrefix: false,
+    swaggerOptions: { spec: yamljs.load('src/api/swagger.yml') },
   }))
   .use('/api/auth', authRouter.routes(), authRouter.allowedMethods())
   .use(assertToken)
-  .use('/api/employees', employeesRouter.routes(), 
+  .use('/api/employees', employeesRouter.routes(),
     employeesRouter.allowedMethods());

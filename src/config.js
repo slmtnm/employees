@@ -21,6 +21,9 @@ const config = {
 
   // Salt that is used to hash passwords
   passwordSalt: process.env.EMPLOYEES_SALT || Date.now(),
+
+  // Size of employee table page
+  pageSize: 10,
 };
 
 export default config;

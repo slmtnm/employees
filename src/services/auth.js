@@ -1,12 +1,12 @@
+import crypto from 'node:crypto';
 import { selectAccount } from '../integration/accounts.js';
-import crypto from 'crypto';
 
 /** Computes SHA-512 hash of given string */
 function hash(string, salt) {
   const hashedPassword = crypto
-        .createHash('sha512')
-        .update(string + salt)
-        .digest('hex');
+    .createHash('sha512')
+    .update(string + salt)
+    .digest('hex');
   return `sha512$${salt}$${hashedPassword}`;
 }
 
@@ -15,9 +15,9 @@ function hash(string, salt) {
 export async function verifyUser(username, password) {
   const account = await selectAccount(username);
   if (!account) {
-    return false; // invalid login
+    return false; // Invalid login
   }
 
-  const [_algo, salt, _passhash] = account['passhash'].split('$');
-  return account['passhash'] == hash(password, salt); // invalid password
+  const [_algo, salt, _passhash] = account.passhash.split('$');
+  return account.passhash === hash(password, salt); // Invalid password
 }
