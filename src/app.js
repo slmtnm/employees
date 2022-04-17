@@ -10,9 +10,9 @@ new Koa()
   .use(new Body())
   .use(new Logger())
   .use(bearerToken())
+  .use(cors())
   .use(router.routes())
   .use(router.allowedMethods())
-  .use(cors())
   .listen(config.port, config.host, () => {
     console.log(`listening on ${config.host}:${config.port}`);
   });
