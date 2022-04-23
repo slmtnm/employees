@@ -1,3 +1,4 @@
+from calendar import month
 import datetime
 import os
 import random
@@ -31,7 +32,9 @@ def random_date() -> str:
     end_date = datetime.date(2003, 2, 1)
     random_number_of_days = random.randrange((end_date - start_date).days)
     random_date = start_date + datetime.timedelta(days=random_number_of_days)
-    return f'{random_date.year}-{random_date.month}-{random_date.day}'
+    random_month = random_date.month if len(str(random_date.month)) > 1 else "0" + str(random_date.month)
+    random_day = random_date.day if len(str(random_date.day)) > 1 else "0" + str(random_date.day)
+    return f'{random_date.year}-{random_month}-{random_day}'
 
 
 def random_employees(N) -> list[Employee]:

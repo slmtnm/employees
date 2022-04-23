@@ -78,7 +78,7 @@ export default new Router()
       message: 'successfully added employee',
     };
   })
-  .patch('/:id', async ctx => {
+  .post('/:id', async ctx => {
     // Endpoint for modifying employees
     const employee = await getById(ctx.params.id);
     if (!employee) {
